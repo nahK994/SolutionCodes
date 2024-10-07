@@ -5,42 +5,44 @@ import (
 	"sort"
 )
 
-var candidates []int
-var target int
 var ans [][]int
 
-func rec(idx int, list []int, sum int) {
+func rec(candidates []int, target int, idx int, list []int, sum int) {
 	if sum == target {
 		temp := make([]int, len(list))
 		copy(temp, list)
 		ans = append(ans, temp)
 		return
-	} else if sum > target {
+	} else if sum > target || idx == len(candidates) {
 		return
 	}
 
-	for i := idx; i < len(candidates); i++ {
-		if i > 0 && candidates[i] == candidates[i-1] {
+	for i := idx; i+1 < len(candidates); i++ {
+		if candidates[i] == candidates[i+1] {
 			continue
 		}
 
-		rec(i+1, list, sum)
-		list = append(list, candidates[i])
-		rec(i+1, list, sum+candidates[i])
-		list = list[:len(list)-1]
+		rec(candidates, target, i+1, list, sum)
+		break
 	}
+
+	list = append(list, candidates[idx])
+	rec(candidates, target, idx+1, list, sum+candidates[idx])
 }
 
-func main() {
-	candidates = []int{10, 1, 2, 7, 6, 1, 5}
-	target = 8
-
+func combinationSum2(candidates []int, target int) [][]int {
 	sort.Slice(candidates, func(i, j int) bool {
 		return candidates[i] < candidates[j]
 	})
 
-	fmt.Println(candidates, target)
-	rec(0, []int{}, 0)
+	rec(candidates, target, 0, []int{}, 0)
+	return ans
+}
+
+func main() {
+	// combinationSum2([]int{10, 1, 2, 7, 6, 1, 5}, 8)
+	// combinationSum2([]int{2, 5, 2, 1, 2}, 5)
+	combinationSum2([]int{4, 4, 4, 4}, 8)
 	for _, item := range ans {
 		fmt.Println(item)
 	}
