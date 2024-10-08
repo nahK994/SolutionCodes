@@ -1,4 +1,4 @@
-package random
+package main
 
 import (
 	"fmt"
@@ -52,13 +52,4 @@ func myAtoi(s string) int {
 		val, _ := strconv.Atoi(string(bt))
 		return checkOverflow(val)
 	}
-}
-
-func main() {
-	// fmt.Println("123", "-->", myAtoi("123"))
-	// fmt.Println("-042", "-->", myAtoi("-042"))
-	// fmt.Println("1337c0d3", "-->", myAtoi("1337c0d3"))
-	// fmt.Println("0-1", "-->", myAtoi("0-1"))
-	// fmt.Println("words and 987", "-->", myAtoi("words and 987"))
-	fmt.Println("21474836460", "-->", myAtoi("21474836460"))
 }
