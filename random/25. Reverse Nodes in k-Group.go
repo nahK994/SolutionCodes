@@ -34,14 +34,14 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	t := head
 	tail := head
 	counter := 0
-	for (counter != 0 && (len/counter) != 1) || counter == 0 {
+	for counter == 0 || (len-counter) >= k {
 		for i := 1; i < k; i++ {
 			t = t.Next
 		}
 		counter += k
 		tail = t
 
-		for i := (k / 2); i >= 0; i-- {
+		for i := (k / 2); i >= 1; i-- {
 			swap(h, t)
 			h = h.Next
 			t = prev[t]
@@ -80,12 +80,12 @@ func printLinkedList(head *ListNode) {
 
 func main() {
 	// Create a linked list [1, 2, 3, 4, 5]
-	head := createLinkedList([]int{1, 2, 3, 4, 5})
+	head := createLinkedList([]int{1, 2, 3, 4, 5, 6})
 	fmt.Println("Original list:")
 	printLinkedList(head)
 
 	// Set k (number of nodes to reverse at a time)
-	k := 2
+	k := 1
 
 	// Reverse the linked list in groups of k
 	head = reverseKGroup(head, k)
