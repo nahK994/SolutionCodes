@@ -24,7 +24,7 @@ func frequency_counter(str string) string {
 	return ans
 }
 
-func main() {
+func main1() {
 	str := "aaabbeeeeettX"
 	fmt.Println(str, "-->", frequency_counter(str))
 }
